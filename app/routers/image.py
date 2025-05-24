@@ -38,7 +38,6 @@ async def generate_image(req: ImageRequest):
 """
 
     try:
-        # OpenAI 호출을 threadpool에서 비동기 실행
         response = await run_in_threadpool(
             client.responses.create,
             model=req.model,
@@ -46,7 +45,6 @@ async def generate_image(req: ImageRequest):
             tools=[{"type": "image_generation"}],
         )
 
-        # image_generation_call 타입의 결과 중 첫 번째 Base64 문자열 추출
         image_b64 = next(
             (out.result for out in response.output if out.type == "image_generation_call"),
             None
@@ -55,8 +53,7 @@ async def generate_image(req: ImageRequest):
         if not image_b64:
             raise HTTPException(status_code=502, detail="이미지 데이터를 반환받지 못했습니다.")
 
-        # JSON으로 { "base64_ttf": "<인코딩된 문자열>" } 반환
-        return JSONResponse(content={"base64_ttf": image_b64})
+        return JSONResponse(content={"base64_image": image_b64})
 
     except HTTPException:
         raise
