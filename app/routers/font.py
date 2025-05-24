@@ -3,7 +3,7 @@ from typing import List
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import FileResponse
 
-router = APIRouter(prefix="/font", tags=["font"])
+router = APIRouter(prefix="/ai", tags=["ai"])
 
 @router.post("/generate-font")
 async def generate_font(

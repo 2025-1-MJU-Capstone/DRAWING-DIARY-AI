@@ -8,7 +8,7 @@ from openai import OpenAI
 from app.core.config import settings
 
 client = OpenAI(api_key=settings.openai_api_key)
-router = APIRouter(prefix="/images", tags=["images"])
+router = APIRouter(prefix="/ai", tags=["ai"])
 
 class ImageRequest(BaseModel):
     feeling: str
@@ -19,7 +19,7 @@ class ImageRequest(BaseModel):
     customStyle: str
     model: str = "gpt-4.1-mini"
 
-@router.post("/generate")
+@router.post("/generate-image")
 async def generate_image(req: ImageRequest):
     prompt = f"""
 [역할]
