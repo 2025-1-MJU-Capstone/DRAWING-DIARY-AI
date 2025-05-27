@@ -10,7 +10,7 @@ router = APIRouter(prefix="/ai", tags=["ai"])
 async def generate_font(
     images: List[UploadFile] = File(...),
 ):
-    ttf_path = os.path.join("sample_ttf", "test.ttf")
+    ttf_path = os.path.join("sample_ttf", "MyKoreanFont.ttf")
     if not os.path.exists(ttf_path):
         raise HTTPException(status_code=500, detail="TTF 파일을 찾을 수 없습니다.")
 
